@@ -19,16 +19,22 @@
         .header{
             background:#1f3a5f;
             color:white;
-            padding:15px 30px;
+            padding:15px 20px;
             display:flex;
             justify-content:space-between;
             align-items:center;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .header h3{
+            font-size:20px;
         }
 
         .header a{
             color:#1f3a5f;
             background:white;
-            padding:8px 14px;
+            padding:10px 14px;
             text-decoration:none;
             border-radius:5px;
             font-weight:bold;
@@ -37,13 +43,14 @@
         .container{
             display:flex;
             justify-content:center;
-            margin-top:50px;
+            padding:20px 12px;
         }
 
         .card{
             background:white;
-            width:420px;
-            padding:30px;
+            width:100%;
+            max-width:450px;
+            padding:24px;
             border-radius:10px;
             box-shadow:0 4px 10px rgba(0,0,0,0.1);
         }
@@ -51,12 +58,14 @@
         h2{
             text-align:center;
             margin-bottom:8px;
+            font-size:24px;
         }
 
         .welcome{
             text-align:center;
             margin-bottom:20px;
             color:#555;
+            font-size:15px;
         }
 
         .form-group{
@@ -67,13 +76,15 @@
             display:block;
             margin-bottom:6px;
             font-weight:bold;
+            font-size:15px;
         }
 
         input{
             width:100%;
-            padding:10px;
+            padding:12px;
             border:1px solid #ccc;
             border-radius:5px;
+            font-size:16px;
         }
 
         .readonly{
@@ -82,13 +93,14 @@
 
         .btn{
             width:100%;
-            padding:12px;
+            padding:13px;
             background:#2e8b57;
             color:white;
             border:none;
             border-radius:5px;
             cursor:pointer;
             margin-top:10px;
+            font-size:16px;
         }
 
         .success{
@@ -96,19 +108,66 @@
             text-align:center;
             margin-bottom:12px;
         }
+
+        @media (max-width: 768px){
+            .header{
+                align-items:flex-start;
+            }
+
+            .card{
+                padding:20px;
+            }
+
+            h2{
+                font-size:22px;
+            }
+        }
+
+        @media (max-width: 480px){
+            .header h3{
+                font-size:18px;
+            }
+
+            .container{
+                padding:15px 10px;
+            }
+
+            .card{
+                padding:18px;
+                border-radius:8px;
+            }
+
+            h2{
+                font-size:20px;
+            }
+
+            .welcome{
+                font-size:14px;
+            }
+
+            label{
+                font-size:14px;
+            }
+
+            input,
+            .btn{
+                font-size:16px;
+                padding:13px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h3> RECORD SYSTEM</h3>
+    <h3>RECORD SYSTEM</h3>
     <a th:href="@{/logout}">Logout</a>
 </div>
 
 <div class="container">
     <div class="card">
         <h2>Daily Record Entry</h2>
-        <p class="welcome">Welcome, <span th:text="${username}"></span></p>
+        <p class="welcome">Welcome, <span th:text="${#strings.toUpperCase(username)}"></span></p>
 
         <p class="success" th:text="${success}"></p>
 
@@ -127,8 +186,6 @@
                 <label>Shortages</label>
                 <input type="number" step="0.01" name="shortages" required>
             </div>
-
-
 
             <div class="form-group">
                 <label>Balance (after save)</label>

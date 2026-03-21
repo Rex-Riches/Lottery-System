@@ -19,24 +19,31 @@
         .header{
             background:#1f3a5f;
             color:white;
-            padding:15px 30px;
+            padding:15px 20px;
             display:flex;
             justify-content:space-between;
             align-items:center;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .header h3{
+            font-size:20px;
         }
 
         .header a{
             color:#1f3a5f;
             background:white;
-            padding:8px 14px;
+            padding:10px 14px;
             text-decoration:none;
             border-radius:5px;
             font-weight:bold;
         }
 
         .container{
-            width:90%;
-            margin:30px auto;
+            width:95%;
+            max-width:1100px;
+            margin:20px auto;
             background:white;
             padding:20px;
             border-radius:10px;
@@ -45,31 +52,43 @@
 
         h2{
             margin-bottom:20px;
+            font-size:24px;
         }
 
         .search-box{
             margin-bottom:20px;
             display:flex;
             gap:10px;
+            flex-wrap:wrap;
         }
 
         .search-box input{
-            padding:10px;
+            padding:12px;
             border:1px solid #ccc;
             border-radius:5px;
+            flex:1;
+            min-width:220px;
+            font-size:16px;
         }
 
         .search-box button{
-            padding:10px 15px;
+            padding:12px 18px;
             border:none;
             background:#2e8b57;
             color:white;
             border-radius:5px;
             cursor:pointer;
+            font-size:16px;
+        }
+
+        .table-wrapper{
+            width:100%;
+            overflow-x:auto;
         }
 
         table{
             width:100%;
+            min-width:700px;
             border-collapse:collapse;
         }
 
@@ -77,11 +96,51 @@
             border:1px solid #ddd;
             padding:10px;
             text-align:center;
+            white-space:nowrap;
         }
 
         th{
             background:#1f3a5f;
             color:white;
+        }
+
+        @media (max-width: 768px){
+            .container{
+                width:95%;
+                padding:15px;
+            }
+
+            h2{
+                font-size:22px;
+            }
+
+            .header{
+                align-items:flex-start;
+            }
+        }
+
+        @media (max-width: 480px){
+            .header h3{
+                font-size:18px;
+            }
+
+            h2{
+                font-size:20px;
+            }
+
+            .search-box{
+                flex-direction:column;
+            }
+
+            .search-box input,
+            .search-box button{
+                width:100%;
+            }
+
+            .container{
+                margin:15px auto;
+                padding:12px;
+            }
         }
     </style>
 </head>
@@ -100,28 +159,30 @@
         <button type="submit">Search</button>
     </form>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Employee</th>
-            <th>Gross</th>
-            <th>Wins</th>
-            <th>Shortages</th>
-            <th>Balance</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="record : ${records}">
-            <td th:text="${record.recordDate}"></td>
-            <td th:text="${record.employee.username}"></td>
-            <td th:text="${record.gross}"></td>
-            <td th:text="${record.wins}"></td>
-            <td th:text="${record.shortages}"></td>
-            <td th:text="${record.balance}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Employee</th>
+                <th>Gross</th>
+                <th>Wins</th>
+                <th>Shortages</th>
+                <th>Balance</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${records}">
+                <td th:text="${record.recordDate}"></td>
+                <td th:text="${#strings.toUpperCase(record.employee.username)}"></td>
+                <td th:text="${record.gross}"></td>
+                <td th:text="${record.wins}"></td>
+                <td th:text="${record.shortages}"></td>
+                <td th:text="${record.balance}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 </body>
